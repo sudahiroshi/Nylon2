@@ -4,10 +4,9 @@
 
 	EventEmitter.map = {};
 	
-    var eventToString = function(event) {
-        event = event.type || event;
-
-        return event.toString();
+	var eventToString = function(event) {
+		event = event.type || event;
+		return event.toString();
     };
 
     EventEmitter.prototype.addEventListener = function( event, listener ) {
