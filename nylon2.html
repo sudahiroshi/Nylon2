@@ -11,8 +11,7 @@
 		</script>
 	</head>
 	<body bgcolor="#ffffff">
-まだ作っている途中ですが，新しいnylonです．これまでのnylonで問題となっていた，自分自身にもイベントが飛んで来る問題を解消しました．<a href="http://www.aduca.org/article/eventemitter-on-browser/">ここ</a>から飛べるgithubに，Webクライアント版のEventEmitterがある．元々node.jsの基幹部として作られたEventEmitterの移植版の一つで，本研究室とは無関係．同じくEventEmitterの移植の一つである石井くんのコードと合体させて，nylon.client.emitする形から&lt;a object&gt;.emitする形に変更．これにより，自分に対してメッセージを送らないように改造を施せました．ちゃんとしたコーディングマニュアルはそのうち作るとして，まずは簡単な使い方です．※現状ではCOeを始め，全てのライブラリが動作しません．
-<h3>使い方　その1　{}に対するイベント登録方法</h3>
+まだ作っている途中ですが，新しいnylonです．これまでのnylonで問題となっていた，自分自身にもイベントが飛んで来る問題を解消しました．<a href="http://www.aduca.org/article/eventemitter-on-browser/">ここ</a>から飛べるgithubに，Webクライアント版のEventEmitterがある．元々node.jsの基幹部として作られたEventEmitterの移植版の一つで，本研究室とは無関係．同じくEventEmitterの移植の一つであるiくんのコードと合体させて，nylon.client.emitする形から&lt;a object&gt;.emitする形に変更．これにより，自分に対してメッセージを送らないように改造を施せました．ちゃんとしたコーディングマニュアルはそのうち作るとして，まずは簡単な使い方です．<h3>使い方　その1　{}に対するイベント登録方法</h3>
 <pre><code>
 var object1 = {};
 nylon.extends( object1 );
