@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<title>chat_test</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="nylon.client.js"></script>
+		<script type="text/javascript" src="nylon.coe.js"></script>
+		<script type="text/javascript" src="nylon.chat.js"></script>
+		<script type="text/javascript">
+			var init=function() {
+				var a = nylon.chat.create();
+				a.addControl( document.getElementById('chat_control'), document.getElementById('chat_message') );
+				a.setMessage( true, document.getElementById('chat_message') );
+				b = nylon.coe.create();
+				b.onconnect( true );
+				b.onmessage( true );
+			}
+			window.addEventListener("load",init);
+		</script>
+
+		<h1>socket.ioのサンプルプログラム</h1>
+		とりあえず作ったnylon2のサンプルプログラムです．nylon.coe.jsはあまりに汚いので書き直したい．<br />
+		nylon.chat.jsについては，これが精一杯です．改良するとしたら，createにパラメータを色々と付けられるようにして全自動化するか，逆にもっと汎用性を持たせて，ボタン一つ一つについて設定するようにするぐらいです．いずれにしても，（現状を含めて）使い勝手が良くないので，何か考えたいです．とは言え，エレメントをセットする順序があるので，これ以上如何ともしがたいと言うのが本音です．<br />
+		あと，イベントをセットするメソッドの true / falseですが，現状ではイベントを外す必要性が見えていません．nylonでallClearを実装するか，オブジェクトを渡して該当するイベントを全削除するのが理想かもしれません．
+		<div id="connect">未接続</div>
+		<form action="" id="chat_control">
+			<p> 名前：<input type="text" name="sendName">発言：<input type="text" name="sendText"></p>
+			<p><input type="button" value="送る" name="sendButton">
+			<input type="button" value="クリア" name="clearButton">
+			<input type="button" value="切断する" name="disconnect">
+		</form>
+		<div id="chat_message"></div>
+	</body>
+</html>
+

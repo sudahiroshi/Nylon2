@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<title>nylon.client Example</title>
+		<script type="text/javascript" src="./nylon.client.js"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="./nylon.coe.js"></script>
+		<script>
+
+		</script>
+	</head>
+	<body bgcolor="#ffffff">
+まだ作っている途中ですが，新しいnylonです．これまでのnylonで問題となっていた，自分自身にもイベントが飛んで来る問題を解消しました．<a href="http://www.aduca.org/article/eventemitter-on-browser/">ここ</a>から飛べるgithubに，Webクライアント版のEventEmitterがある．元々node.jsの基幹部として作られたEventEmitterの移植版の一つで，本研究室とは無関係．同じくEventEmitterの移植の一つである石井くんのコードと合体させて，nylon.client.emitする形から&lt;a object&gt;.emitする形に変更．これにより，自分に対してメッセージを送らないように改造を施せました．ちゃんとしたコーディングマニュアルはそのうち作るとして，まずは簡単な使い方です．※現状ではCOeを始め，全てのライブラリが動作しません．
+<h3>使い方　その1　{}に対するイベント登録方法</h3>
+<pre><code>
+var object1 = {};
+nylon.extends( object1 );
+object1.addEventListener( "sample", function(e) {
+	console.log( e + " by object1" );
+});
+</code></pre>
+<h3>使い方　その2　functionに対するイベント登録方法</h3>
+<pre><code>
+function func(){};
+func.prototype = new nylon();
+var object2 = new func();
+object2.addEventListener( "sample", function(e, arg) {
+	console.log( e + " by object2 " + arg );
+});
+</code></pre>
+<h3>使い方　その3　イベント呼び出し方法</h3>
+<pre><code>
+object1.emit( "sample" );	// -> object2のイベントのみ反応
+object2.emit( "sample", "message" ); // -> object1のイベントのみ反応
+</code></pre>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="nylon.client.js"></script>
+<script type="text/javascript" src="nylon.webworkers.js"></script>
+<script type="text/javascript">
+var dummy = nylon.client.create();
+dummy.on( "worker_set", function() {
+	document.getElementById( "indicator" ).innerHTML = "connect";
+});
+dummy.on( "result", function( keyword, param ) {
+	alert("合計は" + param + "です。");
+});
+// 計算を行うワーカを生成
+var worker = nylon.webworkers.create( "worker.js");
+
+function calculate() {
+  var num = parseInt(document.getElementById("num").value, 10);
+  // ワーカに数値を渡す
+  dummy.emit( "worker", num );
+}
+</script>
+</head>
+<body>
+NylonのWebWorkerモジュールを利用したプログラム．<a href="http://journal.mycom.co.jp/special/2009/html5-2/006.html">こちら</a>の記事を参考にしました．ちゃんと調べていませんが，HTTP経由でないと動かない気がします．<br />
+<h4>用意するファイル</h4>
+worker_test.html・・・このファイル<br>
+nylon.client.js・・・Nylon本体（このプログラム作成時にcreateメソッドにバグがありました．最新版にしてください）<br>
+nylon.webworkers.js・・・WebWorkersとやりとりするクラス<br>
+worker.js・・・わざわざWebWorkersを使うまでもありませんが，合計値を計算するプログラム<br>
+nylon.webworkers.client.js・・・ワーカ側のライブラリ（クラス化とか面倒なことはしていません）<br>
+<h1>1から入力値までの合計を算出</h1>
+数値を入力:<input type="text" id="num">
+<button onclick="calculate()">計算!</button>
+<p id="indicator">not connect</p>
+</body>
+</html>
