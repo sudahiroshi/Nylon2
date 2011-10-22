@@ -56,9 +56,7 @@
     };
     
     EventEmitter.prototype.create = function() {
-    	var dummy = function() {};
-    	dummy.prototype = new EventEmitter();
-    	return dummy;
+    	return new EventEmitter();
     }
 
     window.nylon = EventEmitter;
