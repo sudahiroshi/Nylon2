@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang='ja'>
+	<head>
+		<meta charset="utf-8">
+		<title>XDM sample2</title>
+		<script src="../nylon.client.js"></script>
+		<script src="../nylon.iframe.parent.js"></script>
+	</head>
+	<body>
+		<input type=button id=btn value="send hello!!">
+		<hr>
+		<iframe id=destFrame src="./frame2.html"></iframe>
+		<div id="recv"></div>
+		
+		<script>
+		function init() {
+			a = nylon.client.create();
+			b = nylon.iframe_parent.create( document.getElementById('destFrame'), 'http://localhost');
+			a.on( "test", function( key, message ) {
+				console.log( message.testing );
+			} );
+		}
+		//window.addEventListener( 'load', init );
+		btn.addEventListener('click', init );
+/*var inBtn = document.getElementById('btn');
+inBtn.addEventListener('click', function(e) {
+	var data = {mesg : 'hello', timestamp : (new Date()).getTime() };
+	var destFrame = document.getElementById('destFrame').contentWindow;
+	destFrame.postMessage(JSON.stringify(data), 'http://localhost');
+}, false );
+*/
+/*
+window.addEventListener( 'message', function(event) {
+	if(event.origin == "http://localhost" ) {
+		var data = JSON.parse(event.data);
+		var out = 'origin : ' + event.origin + "<br />";
+		out += "data: " + data.mesg + "(" + data.timestamp + ")<br />";
+		document.getElementById('recv').innerHTML = out;
+	}
+}, false );*/
+		</script>
+	</body>
+</html>

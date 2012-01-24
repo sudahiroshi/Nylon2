@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<script src="nylon.iframe.child.js"></script>
+		<title>XDM destination</title>
+	</head>
+	<body>
+		test
+		<div id="recv"></div>
+		<input type="button" id="btn" value="send">
+		<p id='fuga'>test</p>
+		<script>
+var a = nylon.iframe_child.create();
+/*window.addEventListener('message', function(event) {
+	if(event.data == "init" && !origin) {
+		origin = event.origin;
+		source = event.source;
+	} else {
+		var data = { keyword: 'test', message: { test: 'test data' } };
+		source.postMessage(JSON.stringify(data), origin);
+	}
+}, false);*/
+var btn = document.getElementById('btn');
+
+btn.addEventListener( 'click', function() {
+//	var data = { keyword: 'test', message: { testing: 'testdata' } };
+//	source.postMessage( JSON.stringify(data), origin );
+	a.emit( "test", {testing: "test data"} );
+});
+var b = nylon.iframe_child.create();
+b.onconnect( function() {
+	var c = document.getElementById('fuga');
+	c.innerHTML = "ready";
+b.on( "hoge", function() {
+	c.innerHTML = "hoge";
+	});
+	});
+		</script>
+	</body>
+</html>
