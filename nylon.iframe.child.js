@@ -78,7 +78,6 @@
 
 	exports.prototype.onconnect = function( _callback ) {
 		exports.callback = _callback;
-		var a = 0;
 	}
 	window.addEventListener('message', function( event ) {
 		var mes = JSON.parse( event.data );
@@ -105,7 +104,6 @@
 	}, false);
 
 	exports.create = function( _element, _target ) {
-//		exports.Module.prototype = new nylon();
 		return new exports();
 	};
 	nylon.iframe_child = exports;

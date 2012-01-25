@@ -5,36 +5,18 @@
 		<title>XDM destination</title>
 	</head>
 	<body>
-		test
+		<p id='hoge'>not connected<p>
 		<div id="recv"></div>
-		<input type="button" id="btn" value="send">
-		<p id='fuga'>test</p>
+		<p id='fuga'>not received</p>
 		<script>
-var a = nylon.iframe_child.create();
-/*window.addEventListener('message', function(event) {
-	if(event.data == "init" && !origin) {
-		origin = event.origin;
-		source = event.source;
-	} else {
-		var data = { keyword: 'test', message: { test: 'test data' } };
-		source.postMessage(JSON.stringify(data), origin);
-	}
-}, false);*/
-var btn = document.getElementById('btn');
-
-btn.addEventListener( 'click', function() {
-//	var data = { keyword: 'test', message: { testing: 'testdata' } };
-//	source.postMessage( JSON.stringify(data), origin );
-	a.emit( "test", {testing: "test data"} );
-});
-var b = nylon.iframe_child.create();
-b.onconnect( function() {
-	var c = document.getElementById('fuga');
-	c.innerHTML = "ready";
-b.on( "hoge", function() {
-	c.innerHTML = "hoge";
-	});
-	});
+			var a = nylon.iframe_child.create();
+			a.onconnect( function() {
+				document.getElementById('hoge').innerHTML = "ready";
+				a.on( "test", function(key, message) {
+					document.getElementById('fuga').innerHTML = message.mesg + message.timestamp;
+					a.emit( "test", {mesg: "hello", timestamp : (new Date()).getTime() } );
+				});
+			});
 		</script>
 	</body>
 </html>
